@@ -9,6 +9,7 @@ import { StudentDialogComponent } from './student-dialog/student-dialog.componen
 @Component({
   selector: 'app-alumni-list',
   standalone: true,
+
   imports: [MatTableModule, MatCardModule, MatButtonModule, MatIcon],
   templateUrl: './alumni-list.component.html',
   styleUrl: './alumni-list.component.scss',
@@ -28,7 +29,6 @@ export class AlumniListComponent implements OnInit {
 
   editStudent(student: Student): void {
     const dialogRef = this.dialog.open(StudentDialogComponent, {
-      width: '400px',
       data: { editingStudent: student },
     });
 
@@ -36,7 +36,7 @@ export class AlumniListComponent implements OnInit {
       if (result) {
         const index = this.students.findIndex((s) => s.id === result.id);
         if (index !== -1) {
-          this.students[index] = result;
+          this.handleUpdate(student.id, result);
         }
       }
     });
@@ -52,11 +52,9 @@ export class AlumniListComponent implements OnInit {
       .subscribe({
         next: (result) => {
           if (!!result) {
-            if (editingUser) {
-              this.handleUpdate(editingUser.id, result);
-            } else {
+     
               this.students = [...this.students, result];
-            }
+            
           }
         },
       });

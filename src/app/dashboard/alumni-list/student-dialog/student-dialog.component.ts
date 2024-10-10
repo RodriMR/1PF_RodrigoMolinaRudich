@@ -68,6 +68,13 @@ export class StudentDialogComponent {
     }
   }
 
+  deleteStudent(): void {
+    this.matDialogRef.close({
+      delete: true,
+      student: this.data!.editingStudent,
+    });
+  }
+
   private generateRandomString(length: number): string {
     const characters =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
