@@ -1,0 +1,6 @@
+@use '../scss/layout/spacing' as space;
+
+.main-content {
+    margin-left: space.$side-nav-spacing;
+    padding: 1rem;
+}
