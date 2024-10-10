@@ -5,11 +5,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { StudentService, Student } from '../services/student.service';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
-import { StudentDialogComponent } from './user-dialog/user-dialog.component';
+import { StudentDialogComponent } from './student-dialog/student-dialog.component';
 @Component({
   selector: 'app-alumni-list',
   standalone: true,
-
   imports: [MatTableModule, MatCardModule, MatButtonModule, MatIcon],
   templateUrl: './alumni-list.component.html',
   styleUrl: './alumni-list.component.scss',
@@ -20,7 +19,7 @@ export class AlumniListComponent implements OnInit {
 
   constructor(
     private studentService: StudentService,
-    private matDialog: MatDialog
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -28,10 +27,22 @@ export class AlumniListComponent implements OnInit {
   }
 
   editStudent(student: Student): void {
-    // Implement edit functionality here
+    const dialogRef = this.dialog.open(StudentDialogComponent, {
+      width: '400px',
+      data: { editingStudent: student },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const index = this.students.findIndex((s) => s.id === result.id);
+        if (index !== -1) {
+          this.students[index] = result;
+        }
+      }
+    });
   }
   openModal(editingUser?: Student): void {
-    this.matDialog
+    this.dialog
       .open(StudentDialogComponent, {
         data: {
           editingUser,

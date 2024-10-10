@@ -1,8 +1,8 @@
 <mat-card>
-    <mat-card-title>Alumni List</mat-card-title> 
-    <button mat-button (click)="openModal()">
+    <mat-card-title>Alumni List</mat-card-title>
+    <button class='add-alumni-btn' mat-button (click)="openModal()">
         <mat-icon> add </mat-icon>
-        Crear usuario
+        Create New Alumni
     </button>
     <mat-card-content>
         <table mat-table [dataSource]="students" class="mat-elevation-z8">
@@ -25,7 +25,7 @@
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef> Actions </th>
                 <td mat-cell *matCellDef="let element">
-                    <button mat-button (click)="editStudent(element)">Edit</button>
+                    <button mat-button (click)="openModal(element)">Edit</button>
                 </td>
             </ng-container>
 

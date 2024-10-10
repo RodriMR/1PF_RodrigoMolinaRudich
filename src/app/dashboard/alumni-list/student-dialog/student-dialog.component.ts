@@ -17,18 +17,14 @@ interface StudentDialogData {
   standalone: true,
   imports: [
     CommonModule,
-
     ReactiveFormsModule,
-
     MatInputModule,
-
     MatButtonModule,
-
     MatCardModule,
   ],
 
   templateUrl: './student-dialog.component.html',
-  styles: ``,
+  styleUrl: './student-dialog.component.scss',
 })
 export class StudentDialogComponent {
   studentForm: FormGroup;
