@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
 
-import { RouterOutlet } from '@angular/router';
+
 import { MatToolbar } from '@angular/material/toolbar';
 
 @Component({
@@ -12,4 +13,8 @@ import { MatToolbar } from '@angular/material/toolbar';
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
 })
-export class SidebarComponent {}
+export class SidebarComponent {
+  constructor(public dialog: MatDialog) {}
+
+
+}

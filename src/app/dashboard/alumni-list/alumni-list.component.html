@@ -1,5 +1,9 @@
 <mat-card>
-    <mat-card-title>Alumni List</mat-card-title>
+    <mat-card-title>Alumni List</mat-card-title> 
+    <button mat-button (click)="openModal()">
+        <mat-icon> add </mat-icon>
+        Crear usuario
+    </button>
     <mat-card-content>
         <table mat-table [dataSource]="students" class="mat-elevation-z8">
             <!-- Columns definitions -->
