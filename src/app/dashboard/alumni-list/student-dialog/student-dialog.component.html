@@ -9,12 +9,18 @@
         <mat-error *ngIf="studentForm.get('firstName')?.hasError('required')">
           First Name is required
         </mat-error>
+        <mat-error *ngIf="studentForm.get('firstName')?.hasError('minlength')">
+          First Name must be at least 2 characters long
+        </mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Last Name</mat-label>
         <input matInput formControlName="lastName" required>
         <mat-error *ngIf="studentForm.get('lastName')?.hasError('required')">
           Last Name is required
+        </mat-error>
+        <mat-error *ngIf="studentForm.get('lastName')?.hasError('minlength')">
+          Last Name must be at least 2 characters long
         </mat-error>
       </mat-form-field>
       <mat-form-field>
