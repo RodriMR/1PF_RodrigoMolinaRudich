@@ -34,9 +34,13 @@ export class AlumniListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        const index = this.students.findIndex((s) => s.id === result.id);
-        if (index !== -1) {
-          this.handleUpdate(student.id, result);
+        if (result.action === 'delete') {
+          this.students = this.students.filter((s) => s.id !== result.student.id);
+        } else {
+          const index = this.students.findIndex((s) => s.id === result.id);
+          if (index !== -1) {
+            this.handleUpdate(student.id, result);
+          }
         }
       }
     });

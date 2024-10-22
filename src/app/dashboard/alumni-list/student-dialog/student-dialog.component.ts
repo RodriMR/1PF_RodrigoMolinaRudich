@@ -68,9 +68,9 @@ export class StudentDialogComponent {
     }
   }
 
-  deleteStudent(): void {
+  onDelete(): void {
     this.matDialogRef.close({
-      delete: true,
+      action: 'delete',
       student: this.data!.editingStudent,
     });
   }

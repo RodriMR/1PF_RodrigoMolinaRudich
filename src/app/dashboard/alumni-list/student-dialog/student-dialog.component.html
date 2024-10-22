@@ -2,7 +2,7 @@
 <mat-card>
   <mat-card-title>{{ isEditing ? 'Edit Student' : 'Register New Student' }}</mat-card-title>
   <mat-card-content>
-    <form [formGroup]="studentForm" (ngSubmit)="onSave()">
+    <form [formGroup]="studentForm" >
       <mat-form-field>
         <mat-label>First Name</mat-label>
         <input matInput formControlName="firstName" required>
@@ -33,13 +33,12 @@
           Invalid email
         </mat-error>
       </mat-form-field>
-      <button mat-raised-button color="primary" type="submit">
+      <button mat-raised-button color="primary" (click)="onSave()">
         {{ isEditing ? 'Save' : 'Register' }}
       </button>
-      <!-- TODO add delete functionality -->
-      <!-- <button mat-raised-button color="warn" *ngIf="isEditing" (click)="deleteStudent()">
+      <button class="delete-btn" mat-raised-button color="warn" *ngIf="isEditing" (click)="onDelete()">
         Delete
-      </button> -->
+      </button>
     </form>
   </mat-card-content>
 </mat-card>
