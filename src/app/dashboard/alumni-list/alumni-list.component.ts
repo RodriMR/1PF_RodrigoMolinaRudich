@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { StudentService, Student } from '../services/student.service';
+import { StudentService, Student } from '../../shared/services/student.service';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { StudentDialogComponent } from './student-dialog/student-dialog.component';
@@ -35,7 +35,9 @@ export class AlumniListComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         if (result.action === 'delete') {
-          this.students = this.students.filter((s) => s.id !== result.student.id);
+          this.students = this.students.filter(
+            (s) => s.id !== result.student.id
+          );
         } else {
           const index = this.students.findIndex((s) => s.id === result.id);
           if (index !== -1) {
@@ -56,9 +58,7 @@ export class AlumniListComponent implements OnInit {
       .subscribe({
         next: (result) => {
           if (!!result) {
-     
-              this.students = [...this.students, result];
-            
+            this.students = [...this.students, result];
           }
         },
       });
