@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Student } from '@models/students';
-
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StudentService {
+  // Create a BehaviorSubject to store the students' data
+  private studentsSubject = new BehaviorSubject<Student[]>([]);
+  // Expose the students as an Observable
+  students$: Observable<Student[]> = this.studentsSubject.asObservable();
+
   private students: Student[] = [
     {
       id: 1,
@@ -37,24 +42,37 @@ export class StudentService {
     }
   ];
 
-  getStudents(): Student[] {
-    return this.students;
+  constructor() {
+    // Initialize the BehaviorSubject with the students' data
+    this.studentsSubject.next(this.students);
+  }
+
+  // Get students as an Observable
+  getStudents(): Observable<Student[]> {
+    return this.students$;
   }
 
   addStudent(student: Student): void {
     student.createdAt = new Date();
-    this.students.push(student);
+    // Create a new array reference and emit it
+    this.students = [...this.students, student];
+    this.studentsSubject.next(this.students);
   }
-
+  
   updateStudentById(id: string, update: Student): void {
-    const index = this.students.findIndex(
-      (student) => student.id === Number(id)
-    );
+    const index = this.students.findIndex((student) => student.id === Number(id));
     if (index !== -1) {
-      this.students[index] = { ...this.students[index], ...update };
+      const updatedStudents = this.students.map((student) =>
+        student.id === Number(id) ? { ...student, ...update } : student
+      );
+      this.students = updatedStudents;
+      this.studentsSubject.next(this.students);
     }
   }
+
+  // Delete a student by ID and emit the updated list
   deleteStudent(id: string): void {
-    this.students = this.students.filter((student) => student.id !== id);
+    this.students = this.students.filter((student) => student.id !== Number(id));
+    this.studentsSubject.next(this.students);
   }
 }

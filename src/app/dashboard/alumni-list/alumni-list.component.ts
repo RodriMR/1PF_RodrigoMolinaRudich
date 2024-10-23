@@ -2,18 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { StudentService} from '../../shared/services/student.service';
-import { Student } from '@models/students';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
+import { StudentService } from '../../shared/services/student.service';
+import { Student } from '@models/students';
 import { StudentDialogComponent } from './student-dialog/student-dialog.component';
+
 @Component({
   selector: 'app-alumni-list',
   standalone: true,
-
   imports: [MatTableModule, MatCardModule, MatButtonModule, MatIcon],
   templateUrl: './alumni-list.component.html',
-  styleUrl: './alumni-list.component.scss',
+  styleUrls: ['./alumni-list.component.scss'],
 })
 export class AlumniListComponent implements OnInit {
   displayedColumns: string[] = ['firstName', 'lastName', 'email', 'actions'];
@@ -25,8 +25,11 @@ export class AlumniListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.students = this.studentService.getStudents();
+    this.studentService.getStudents().subscribe((data: Student[]) => {
+      this.students = data;
+    });
   }
+  
 
   editStudent(student: Student): void {
     const dialogRef = this.dialog.open(StudentDialogComponent, {
@@ -36,38 +39,27 @@ export class AlumniListComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         if (result.action === 'delete') {
-          this.students = this.students.filter(
-            (s) => s.id !== result.student.id
-          );
+          this.studentService.deleteStudent(result.student.id.toString());
         } else {
-          const index = this.students.findIndex((s) => s.id === result.id);
-          if (index !== -1) {
-            this.handleUpdate(student.id, result);
-          }
+          this.studentService.updateStudentById(
+            result.id.toString(),
+            result
+          );
         }
       }
     });
   }
+
   openModal(editingUser?: Student): void {
     this.dialog
       .open(StudentDialogComponent, {
-        data: {
-          editingUser,
-        },
+        data: { editingUser },
       })
       .afterClosed()
-      .subscribe({
-        next: (result) => {
-          if (!!result) {
-            this.students = [...this.students, result];
-          }
-        },
+      .subscribe((result) => {
+        if (result) {
+          this.studentService.addStudent(result);
+        }
       });
-  }
-
-  handleUpdate(id: number, update: Student): void {
-    this.students = this.students.map((student) =>
-      student.id === id ? update : student
-    );
   }
 }
