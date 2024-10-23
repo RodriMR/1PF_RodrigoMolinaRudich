@@ -31,8 +31,10 @@
         </mat-form-field>
 
         <div class="button-group">
-            <button mat-raised-button color="primary" (click)="onSave()">Save</button>
-            <button mat-raised-button color="primary" (click)="onDelete()">Delete</button>
+            <button class="save-btn" mat-raised-button color="primary" (click)="onSave()">Save</button>
+
+            <button class="delete-btn" *ngIf="data.course" mat-raised-button color="warn"
+                (click)="onDelete()">Delete</button>
 
         </div>
     </form>
