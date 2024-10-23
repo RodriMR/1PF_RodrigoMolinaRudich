@@ -1,11 +1,13 @@
 <mat-card>
     <mat-card-title>Course List</mat-card-title>
-    <button class='add-course-btn' mat-button> <mat-icon> add </mat-icon>Add new course</button>
+    <button class="add-course-btn" mat-button (click)="openCourseDialog()">
+        <mat-icon>add</mat-icon> Add New Course
+    </button>
     <mat-card-content>
         <table mat-table [dataSource]="courses" class="mat-elevation-z8">
             <ng-container matColumnDef="title">
                 <th mat-header-cell *matHeaderCellDef> Title </th>
-                <td mat-cell *matCellDef="let course">{{ course.title | uppercaseTitle }} </td>
+                <td mat-cell *matCellDef="let course"> {{ course.title | uppercaseTitle }} </td>
             </ng-container>
 
             <ng-container matColumnDef="description">
@@ -13,8 +15,15 @@
                 <td mat-cell *matCellDef="let course"> {{ course.description }} </td>
             </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="['title', 'description']"></tr>
-            <tr mat-row *matRowDef="let row; columns: ['title', 'description']"></tr>
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef> Actions </th>
+                <td mat-cell *matCellDef="let course">
+                    <button mat-button (click)="editCourse(course)">Edit</button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
     </mat-card-content>
 </mat-card>

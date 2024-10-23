@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { CourseService } from '../../shared/services/course.service';
 import { Course } from '@models/courses';
+import { CourseDialogComponent } from './course-dialog/course-dialog.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { MatDialog } from '@angular/material/dialog';
 import { UppercaseTitlePipe } from 'src/app/shared/pipes/upperCaseTitle/uppercase-title.pipe';
+import { MatTable } from '@angular/material/table';
 
 @Component({
   selector: 'app-course-list',
@@ -22,8 +24,8 @@ import { UppercaseTitlePipe } from 'src/app/shared/pipes/upperCaseTitle/uppercas
   styleUrls: ['./course-list.component.scss'],
 })
 export class CourseListComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'description', 'actions'];
   courses: Course[] = [];
+  displayedColumns: string[] = ['title', 'description', 'actions'];
 
   constructor(private courseService: CourseService, public dialog: MatDialog) {}
 
@@ -32,4 +34,27 @@ export class CourseListComponent implements OnInit {
       this.courses = data;
     });
   }
+
+  openCourseDialog(course?: Course): void {
+    const dialogRef = this.dialog.open(CourseDialogComponent, {
+      data: { course },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        if (course) {
+          this.courseService.updateCourseById(course.id, result).subscribe();
+        } else {
+          this.courseService.addCourse(result).subscribe();
+        }
+      }
+    });
+  }
+
+  editCourse(course: Course): void {
+    this.openCourseDialog(course);
+  }
 }
+
+
+
