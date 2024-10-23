@@ -55,15 +55,15 @@ export class CourseService {
       createdAt: new Date(),
     };
     this.courses.push(newCourse);
-    this.coursesSubject.next([...this.courses]); 
+    this.coursesSubject.next([...this.courses]);
     return new Observable((observer) => observer.complete());
   }
-  
+
   updateCourseById(id: number, update: Partial<Course>): Observable<void> {
     const index = this.courses.findIndex((course) => course.id === id);
     if (index !== -1) {
       this.courses[index] = { ...this.courses[index], ...update };
-      this.coursesSubject.next([...this.courses]); 
+      this.coursesSubject.next([...this.courses]);
     }
     return new Observable((observer) => observer.complete());
   }

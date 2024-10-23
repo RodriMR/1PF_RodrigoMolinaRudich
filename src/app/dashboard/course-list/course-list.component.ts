@@ -9,11 +9,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { UppercaseTitlePipe } from 'src/app/shared/pipes/upperCaseTitle/uppercase-title.pipe';
 import { MatTable } from '@angular/material/table';
-
+import { CommonModule } from '@angular/common';
+import { Student } from '@models/students';
+import { StudentService } from 'src/app/shared/services/student.service';
 @Component({
   selector: 'app-course-list',
   standalone: true,
   imports: [
+    CommonModule,
     MatTableModule,
     MatCardModule,
     MatButtonModule,
@@ -25,16 +28,35 @@ import { MatTable } from '@angular/material/table';
 })
 export class CourseListComponent implements OnInit {
   courses: Course[] = [];
-  displayedColumns: string[] = ['title', 'description', 'actions'];
+  students: Student[] = [];
+  displayedColumns: string[] = ['title', 'description', 'students', 'actions'];
 
-  constructor(private courseService: CourseService, public dialog: MatDialog) {}
+  constructor(
+    private courseService: CourseService,
+    public dialog: MatDialog,
+    private studentService: StudentService
+  ) {}
 
   ngOnInit(): void {
     this.courseService.getCourses().subscribe((data: Course[]) => {
       this.courses = data;
     });
+    this.studentService.getStudents().subscribe((students: Student[]) => {
+      this.students = students;
+    });
   }
-
+  getStudentNames(studentIds: number[]): string {
+    if (!studentIds || studentIds.length === 0) {
+      return 'No students enrolled'; 
+    }
+    return studentIds
+      .map((id) => {
+        const student = this.students.find((s) => s.id === id);
+        return student ? `${student.firstName} ${student.lastName}` : '';
+      })
+      .filter((name) => name)
+      .join(', ');
+  }
   openCourseDialog(course?: Course): void {
     const dialogRef = this.dialog.open(CourseDialogComponent, {
       data: { course },
@@ -55,6 +77,3 @@ export class CourseListComponent implements OnInit {
     this.openCourseDialog(course);
   }
 }
-
-
-

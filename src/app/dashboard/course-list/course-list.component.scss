@@ -9,6 +9,13 @@
     padding: 1rem;
 }
 
+.student-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .add-course-btn {
     width: 250px;
     margin: 1rem;
