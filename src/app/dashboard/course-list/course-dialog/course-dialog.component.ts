@@ -94,9 +94,10 @@ export class CourseDialogComponent implements OnInit {
   onDelete(): void {
     this.dialogRef.close({
       action: 'delete',
-      course: this.data!.editingCourse,
+      course: this.data,
     });
   }
+
   private generateRandomString(length: number): string {
     const characters =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

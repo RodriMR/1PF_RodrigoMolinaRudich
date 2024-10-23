@@ -65,8 +65,8 @@ export class CourseListComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         if (result.action === 'delete') {
-          console.log(result);
-          this.courseService.deleteCourse(result.course.id);
+          let { course } = result;
+          this.courseService.deleteCourse(course.course.id);
         } else {
           if (course) {
             this.courseService.updateCourseById(course.id, result).subscribe();
