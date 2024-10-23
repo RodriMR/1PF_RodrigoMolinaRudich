@@ -1,0 +1,17 @@
+.mat-mdc-card {
+    padding: 2rem;
+
+    form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 300px;
+        margin: 1rem 0;
+        padding: 1rem;
+    }
+
+    .mat-mdc-form-field {
+        margin: 0.5rem 0;
+    }
+
+}

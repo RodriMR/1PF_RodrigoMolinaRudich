@@ -1,1 +1,35 @@
-<p>course-dialog works!</p>
+<mat-card>
+    <mat-card-title>{{ data.course ? 'Edit Course' : 'New Course' }}</mat-card-title>
+
+    <form [formGroup]="courseForm">
+        <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Course Title</mat-label>
+            <input matInput placeholder="Enter course title" formControlName="title" />
+            <mat-error *ngIf="courseForm.get('title')?.hasError('required')">
+                Course title is required
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Course Description</mat-label>
+            <textarea matInput placeholder="Enter course description" formControlName="description"></textarea>
+            <mat-error *ngIf="courseForm.get('description')?.hasError('required')">
+                Description is required
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Select Students</mat-label>
+            <mat-select formControlName="students" multiple>
+                <mat-option *ngFor="let student of alumniList" [value]="student.id">
+                    {{ student.firstName }} {{ student.lastName }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div class="button-group">
+            <button mat-raised-button color="primary" (click)="onSave()">Save</button>
+            <button mat-button (click)="onCancel()">Cancel</button>
+        </div>
+    </form>
+</mat-card>
