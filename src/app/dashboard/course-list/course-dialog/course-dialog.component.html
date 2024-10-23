@@ -1,5 +1,8 @@
 <mat-card>
-    <mat-card-title>{{ data.course ? 'Edit Course' : 'New Course' }}</mat-card-title>
+    <div class="header-container">
+        <mat-card-title>{{ data.course ? 'Edit Course' : 'New Course' }}</mat-card-title>
+        <button mat-raised-button (click)="onCancel()">Close</button>
+    </div>
 
     <form [formGroup]="courseForm">
         <mat-form-field appearance="fill" class="form-field">
@@ -29,7 +32,8 @@
 
         <div class="button-group">
             <button mat-raised-button color="primary" (click)="onSave()">Save</button>
-            <button mat-button (click)="onCancel()">Cancel</button>
+            <button mat-raised-button color="primary" (click)="onDelete()">Delete</button>
+
         </div>
     </form>
 </mat-card>

@@ -67,6 +67,7 @@ export class CourseDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Fetch the list of students to populate the dropdown
     this.studentService.getStudents().subscribe((students: Student[]) => {
       this.alumniList = students;
     });

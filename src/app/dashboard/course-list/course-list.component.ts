@@ -47,7 +47,7 @@ export class CourseListComponent implements OnInit {
   }
   getStudentNames(studentIds: number[]): string {
     if (!studentIds || studentIds.length === 0) {
-      return 'No students enrolled'; 
+      return 'No students enrolled';
     }
     return studentIds
       .map((id) => {
@@ -64,10 +64,15 @@ export class CourseListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        if (course) {
-          this.courseService.updateCourseById(course.id, result).subscribe();
+        if (result.action === 'delete') {
+          console.log(result);
+          this.courseService.deleteCourse(result.course.id);
         } else {
-          this.courseService.addCourse(result).subscribe();
+          if (course) {
+            this.courseService.updateCourseById(course.id, result).subscribe();
+          } else {
+            this.courseService.addCourse(result).subscribe();
+          }
         }
       }
     });

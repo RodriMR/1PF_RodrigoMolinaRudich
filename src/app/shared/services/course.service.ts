@@ -67,6 +67,15 @@ export class CourseService {
     }
     return new Observable((observer) => observer.complete());
   }
+  deleteCourse(id: number): Observable<void> {
+    const index = this.courses.findIndex((course) => course.id === id);
+    if (index !== -1) {
+      this.courses.splice(index, 1);
+      this.coursesSubject.next([...this.courses]);
+    }
+    return new Observable((observer) => observer.complete());
+  }
+
   private generateId(): number {
     return Math.floor(Math.random() * 1000);
   }
