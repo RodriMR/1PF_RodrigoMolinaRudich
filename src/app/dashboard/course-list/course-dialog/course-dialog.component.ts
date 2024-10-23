@@ -15,6 +15,7 @@ import { MatOptionModule } from '@angular/material/core';
 
 interface CourseDialogData {
   course?: Course;
+  editingCourse?: Course;
 }
 
 @Component({
@@ -43,7 +44,6 @@ export class CourseDialogComponent implements OnInit {
     private studentService: StudentService,
     @Inject(MAT_DIALOG_DATA) public data: CourseDialogData
   ) {
-    // Initialize the form with validators
     this.courseForm = this.fb.group({
       title: [
         data.course?.title || '',
@@ -53,40 +53,57 @@ export class CourseDialogComponent implements OnInit {
         data.course?.description || '',
         [Validators.required, Validators.minLength(10)],
       ],
-      students: [data.course?.students || []], // Allows multiple students
+      students: [data.course?.students || []],
     });
+  }
+  public get isEditing() {
+    return !!this.data?.editingCourse;
+  }
+
+  patchFormValue() {
+    if (this.data?.editingCourse) {
+      this.courseForm.patchValue(this.data.editingCourse);
+    }
   }
 
   ngOnInit(): void {
-    // Fetch the list of students to populate the dropdown
     this.studentService.getStudents().subscribe((students: Student[]) => {
       this.alumniList = students;
     });
   }
 
   onSave(): void {
-    if (this.courseForm.valid) {
-      const courseData = this.courseForm.value;
-
-      if (this.data.course) {
-        // If editing an existing course, update it
-        this.courseService
-          .updateCourseById(this.data.course.id, courseData)
-          .subscribe(() => {
-            this.dialogRef.close(true);
-          });
-      } else {
-        // If creating a new course, add it
-        this.courseService.addCourse(courseData).subscribe(() => {
-          this.dialogRef.close(true);
-        });
-      }
+    if (this.courseForm.invalid) {
+      this.courseForm.markAllAsTouched();
     } else {
-      this.courseForm.markAllAsTouched(); // Highlight invalid fields
+      this.dialogRef.close({
+        ...this.courseForm.value,
+        id: this.isEditing
+          ? this.data!.editingCourse!.id
+          : this.generateRandomString(4),
+        createdAt: this.isEditing
+          ? this.data!.editingCourse!.createdAt
+          : new Date(),
+      });
     }
   }
-
   onCancel(): void {
-    this.dialogRef.close(false); // Close dialog without saving
+    this.dialogRef.close(false);
+  }
+  onDelete(): void {
+    this.dialogRef.close({
+      action: 'delete',
+      course: this.data!.editingCourse,
+    });
+  }
+  private generateRandomString(length: number): string {
+    const characters =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
   }
 }
