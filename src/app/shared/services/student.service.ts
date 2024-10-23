@@ -39,7 +39,7 @@ export class StudentService {
       lastName: 'Brown',
       email: 'michael.brown@example.com',
       createdAt: new Date('2024-01-04T10:00:00'),
-    }
+    },
   ];
 
   constructor() {
@@ -52,6 +52,7 @@ export class StudentService {
     return this.students$;
   }
 
+  // Add a new student to the list and emit the updated list
   addStudent(student: Student): void {
     student.createdAt = new Date();
     // Create a new array reference and emit it
@@ -59,8 +60,11 @@ export class StudentService {
     this.studentsSubject.next(this.students);
   }
   
+  // Update a student by ID and emit the updated list
   updateStudentById(id: string, update: Student): void {
-    const index = this.students.findIndex((student) => student.id === Number(id));
+    const index = this.students.findIndex(
+      (student) => student.id === Number(id)
+    );
     if (index !== -1) {
       const updatedStudents = this.students.map((student) =>
         student.id === Number(id) ? { ...student, ...update } : student
@@ -72,7 +76,9 @@ export class StudentService {
 
   // Delete a student by ID and emit the updated list
   deleteStudent(id: string): void {
-    this.students = this.students.filter((student) => student.id !== Number(id));
+    this.students = this.students.filter(
+      (student) => student.id !== Number(id)
+    );
     this.studentsSubject.next(this.students);
   }
 }
