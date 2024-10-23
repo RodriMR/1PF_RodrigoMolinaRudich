@@ -6,5 +6,4 @@ export const routes: Routes = [
   { path: 'alumni', component: AlumniListComponent },
   { path: 'courses', component: CourseListComponent },
   { path: '', redirectTo: '/alumni', pathMatch: 'full' },
-  { path: '**', redirectTo: '/alumni' }
 ];
