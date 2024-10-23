@@ -29,7 +29,6 @@ export class AlumniListComponent implements OnInit {
       this.students = data;
     });
   }
-  
 
   editStudent(student: Student): void {
     const dialogRef = this.dialog.open(StudentDialogComponent, {
@@ -41,10 +40,7 @@ export class AlumniListComponent implements OnInit {
         if (result.action === 'delete') {
           this.studentService.deleteStudent(result.student.id.toString());
         } else {
-          this.studentService.updateStudentById(
-            result.id.toString(),
-            result
-          );
+          this.studentService.updateStudentById(result.id.toString(), result);
         }
       }
     });

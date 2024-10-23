@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { AlumniListComponent } from './dashboard/alumni-list/alumni-list.component';
+import { CourseListComponent } from './dashboard/course-list/course-list.component';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -11,6 +12,7 @@ import { AlumniListComponent } from './dashboard/alumni-list/alumni-list.compone
     NavbarComponent,
     SidebarComponent,
     AlumniListComponent,
+    CourseListComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
