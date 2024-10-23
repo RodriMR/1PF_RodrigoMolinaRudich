@@ -1,16 +1,16 @@
 <!-- course-list.component.html -->
 <h2>Available Courses</h2>
 <table mat-table [dataSource]="courses">
-  <ng-container matColumnDef="title">
-    <th mat-header-cell *matHeaderCellDef> Title </th>
-    <td mat-cell *matCellDef="let course"> {{ course.title }} </td>
-  </ng-container>
+    <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> Title </th>
+        <td mat-cell *matCellDef="let course">{{ course.title | uppercaseTitle }} </td>
+    </ng-container>
 
-  <ng-container matColumnDef="description">
-    <th mat-header-cell *matHeaderCellDef> Description </th>
-    <td mat-cell *matCellDef="let course"> {{ course.description }} </td>
-  </ng-container>
+    <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Description </th>
+        <td mat-cell *matCellDef="let course"> {{ course.description }} </td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="['title', 'description']"></tr>
-  <tr mat-row *matRowDef="let row; columns: ['title', 'description']"></tr>
+    <tr mat-header-row *matHeaderRowDef="['title', 'description']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['title', 'description']"></tr>
 </table>
