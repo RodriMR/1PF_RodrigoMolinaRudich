@@ -1,12 +1,13 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+  ValidationErrors,
+} from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Student } from '@models/students';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
 import { SharedModule } from '../../shared.module';
 
 interface StudentDialogData {
@@ -30,8 +31,22 @@ export class StudentDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data?: StudentDialogData
   ) {
     this.studentForm = this.formBuilder.group({
-      firstName: ['', [Validators.required, Validators.minLength(2)]],
-      lastName: ['', [Validators.required, Validators.minLength(2)]],
+      firstName: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(2),
+          this.lettersOnlyValidator,
+        ],
+      ],
+      lastName: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(2),
+          this.lettersOnlyValidator,
+        ],
+      ],
       email: ['', [Validators.required, Validators.email]],
     });
     this.patchFormValue();
@@ -40,7 +55,11 @@ export class StudentDialogComponent {
   public get isEditing() {
     return !!this.data?.editingStudent;
   }
-
+  lettersOnlyValidator(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    const lettersOnly = /^[A-Za-z]+$/.test(value);
+    return lettersOnly ? null : { lettersOnly: true };
+  }
   patchFormValue() {
     if (this.data?.editingStudent) {
       this.studentForm.patchValue(this.data.editingStudent);
