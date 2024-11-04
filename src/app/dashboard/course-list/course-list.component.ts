@@ -6,6 +6,7 @@ import { CourseDialogComponent } from './course-dialog/course-dialog.component';
 import { UppercaseTitlePipe } from 'src/app/shared/pipes/upperCaseTitle/uppercase-title.pipe';
 import { Student } from '@models/students';
 import { StudentService } from 'src/app/shared/services/student.service';
+import { ClassService } from 'src/app/shared/services/classes.service';
 import { SharedModule } from '../shared.module';
 import { Class } from '@models/classes';
 @Component({
@@ -20,11 +21,12 @@ export class CourseListComponent implements OnInit {
   students: Student[] = [];
   classes: Class[] = [];
   displayedColumns: string[] = ['title', 'description', 'students', 'actions'];
-
+  displayedColumnsClasses: string[] = ['title', 'description', 'actions'];
   constructor(
     private courseService: CourseService,
     public dialog: MatDialog,
-    private studentService: StudentService
+    private studentService: StudentService,
+    private classService: ClassService
   ) {}
 
   ngOnInit(): void {
@@ -34,7 +36,11 @@ export class CourseListComponent implements OnInit {
     this.studentService.getStudents().subscribe((students: Student[]) => {
       this.students = students;
     });
+    this.classService.getClasses().subscribe((classes: Class[]) => {
+      this.classes = classes;
+    });
   }
+
   getStudentNames(studentIds: number[]): string {
     if (!studentIds || studentIds.length === 0) {
       return 'No students enrolled';
@@ -47,6 +53,8 @@ export class CourseListComponent implements OnInit {
       .filter((name) => name)
       .join(', ');
   }
+
+  //------COURSES------//
   openCourseDialog(course?: Course): void {
     const dialogRef = this.dialog.open(CourseDialogComponent, {
       data: { course },
@@ -67,12 +75,9 @@ export class CourseListComponent implements OnInit {
       }
     });
   }
-
   editCourse(course: Course): void {
     this.openCourseDialog(course);
   }
-  getClasses(course: Course): Class[] {
-    return course.classes || [];
-  }
 
+  //------CLASSES------//
 }
