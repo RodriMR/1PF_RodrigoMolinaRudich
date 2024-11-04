@@ -16,6 +16,7 @@ export class CourseService {
       description: 'Learn the basics of Angular',
       createdAt: new Date(),
       students: [],
+      classes: [],
     },
     {
       id: 2,
@@ -23,6 +24,7 @@ export class CourseService {
       description: 'Deep dive into Angular features',
       createdAt: new Date(),
       students: [],
+      classes: [],
     },
     {
       id: 3,
@@ -30,6 +32,7 @@ export class CourseService {
       description: 'Master Angular forms',
       createdAt: new Date(),
       students: [],
+      classes: [],
     },
     {
       id: 4,
@@ -37,6 +40,7 @@ export class CourseService {
       description: 'Learn how to use Angular Router',
       createdAt: new Date(),
       students: [],
+      classes: [],
     },
   ];
 

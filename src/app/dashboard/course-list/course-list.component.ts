@@ -4,23 +4,21 @@ import { CourseService } from '../../shared/services/course.service';
 import { Course } from '@models/courses';
 import { CourseDialogComponent } from './course-dialog/course-dialog.component';
 import { UppercaseTitlePipe } from 'src/app/shared/pipes/upperCaseTitle/uppercase-title.pipe';
-import { CommonModule } from '@angular/common';
 import { Student } from '@models/students';
 import { StudentService } from 'src/app/shared/services/student.service';
 import { SharedModule } from '../shared.module';
+import { Class } from '@models/classes';
 @Component({
   selector: 'app-course-list',
   standalone: true,
-  imports: [
-    UppercaseTitlePipe,
-    SharedModule
-  ],
+  imports: [UppercaseTitlePipe, SharedModule],
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.scss'],
 })
 export class CourseListComponent implements OnInit {
   courses: Course[] = [];
   students: Student[] = [];
+  classes: Class[] = [];
   displayedColumns: string[] = ['title', 'description', 'students', 'actions'];
 
   constructor(
@@ -73,4 +71,8 @@ export class CourseListComponent implements OnInit {
   editCourse(course: Course): void {
     this.openCourseDialog(course);
   }
+  getClasses(course: Course): Class[] {
+    return course.classes || [];
+  }
+
 }
