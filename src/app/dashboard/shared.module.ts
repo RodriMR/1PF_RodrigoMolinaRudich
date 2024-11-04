@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatTab, MatTabGroup } from '@angular/material/tabs';
 @NgModule({
   imports: [
     CommonModule,
@@ -18,7 +19,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatSelectModule,
     MatOptionModule,
-    ReactiveFormsModule
+    MatTab,
+    MatTabGroup,
+
+    ReactiveFormsModule,
   ],
   exports: [
     CommonModule,
@@ -29,7 +33,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatSelectModule,
     MatOptionModule,
-    ReactiveFormsModule
+    MatTab,
+    MatTabGroup,
+    ReactiveFormsModule,
   ],
 })
 export class SharedModule {}
