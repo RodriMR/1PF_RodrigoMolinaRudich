@@ -4,6 +4,6 @@ import { CourseListComponent } from './dashboard/course-list/course-list.compone
 
 export const routes: Routes = [
   { path: 'alumni', component: AlumniListComponent },
-  { path: 'courses', component: CourseListComponent },
+  { path: 'courses-classes', component: CourseListComponent },
   { path: '**', redirectTo: '/alumni', pathMatch: 'full' },
 ];

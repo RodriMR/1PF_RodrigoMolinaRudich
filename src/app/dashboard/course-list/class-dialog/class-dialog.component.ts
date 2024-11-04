@@ -41,7 +41,6 @@ export class ClassDialogComponent implements OnInit {
         [Validators.required, Validators.minLength(10)],
       ],
     });
-    console.log('data', data);
   }
   public get isEditing() {
     return !!this.data?.editingClass;
