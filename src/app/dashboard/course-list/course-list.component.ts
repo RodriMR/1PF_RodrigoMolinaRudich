@@ -9,6 +9,7 @@ import { StudentService } from 'src/app/shared/services/student.service';
 import { ClassService } from 'src/app/shared/services/classes.service';
 import { SharedModule } from '../shared.module';
 import { Class } from '@models/classes';
+import { ClassDialogComponent } from './class-dialog/class-dialog.component';
 @Component({
   selector: 'app-course-list',
   standalone: true,
@@ -80,4 +81,28 @@ export class CourseListComponent implements OnInit {
   }
 
   //------CLASSES------//
+  openClassDialog(item?: Class): void {
+    const dialogRef = this.dialog.open(ClassDialogComponent, {
+      data: { item },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+      
+        if (result.action === 'delete') {
+          let { item } = result;
+          this.classService.deleteClass(item.item.id);
+        } else {
+          if (item) {
+            this.classService.updateClassById(item.id, result).subscribe();
+          } else {
+            this.classService.addClass(result).subscribe();
+          }
+        }
+      }
+    });
+  }
+  editClass(item: Class): void {
+    this.openClassDialog(item);
+  }
 }

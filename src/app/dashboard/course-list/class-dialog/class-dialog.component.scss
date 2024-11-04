@@ -1,0 +1,45 @@
+.mat-mdc-card {
+    padding: 2rem;
+
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 500px;
+        margin: 1rem 0;
+        padding: 1rem;
+
+
+    }
+
+    .button-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .save-btn {
+            width: 70%;
+            pad: 1rem;
+
+        }
+
+        .delete-btn {
+            width: 50%;
+            margin-top: 2rem;
+        }
+    }
+
+    .mat-mdc-form-field {
+        margin: 0.5rem 0;
+    }
+
+}

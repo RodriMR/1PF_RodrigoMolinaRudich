@@ -1,0 +1,33 @@
+<mat-card>
+    <div class="header-container">
+        <mat-card-title>{{ data.item ? 'Edit Class' : 'New Class' }}</mat-card-title>
+        <button mat-raised-button (click)="onCancel()">Close</button>
+    </div>
+
+    <form [formGroup]="classForm">
+        <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Course Title</mat-label>
+            <input matInput placeholder="Enter course title" formControlName="title" />
+            <mat-error *ngIf="classForm.get('title')?.hasError('required')">
+                Course title is required
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Course Description</mat-label>
+            <textarea matInput placeholder="Enter course description" formControlName="description"></textarea>
+            <mat-error *ngIf="classForm.get('description')?.hasError('required')">
+                Description is required
+            </mat-error>
+        </mat-form-field>
+
+
+        <div class="button-group">
+            <button class="save-btn" mat-raised-button color="primary" (click)="onSave()">Save</button>
+
+            <button class="delete-btn" *ngIf="data.item" mat-raised-button color="warn"
+                (click)="onDelete()">Delete</button>
+
+        </div>
+    </form>
+</mat-card>
