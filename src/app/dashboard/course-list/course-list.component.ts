@@ -3,25 +3,17 @@ import { MatDialog } from '@angular/material/dialog';
 import { CourseService } from '../../shared/services/course.service';
 import { Course } from '@models/courses';
 import { CourseDialogComponent } from './course-dialog/course-dialog.component';
-import { MatTableModule } from '@angular/material/table';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
 import { UppercaseTitlePipe } from 'src/app/shared/pipes/upperCaseTitle/uppercase-title.pipe';
-import { MatTable } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { Student } from '@models/students';
 import { StudentService } from 'src/app/shared/services/student.service';
+import { SharedModule } from '../shared.module';
 @Component({
   selector: 'app-course-list',
   standalone: true,
   imports: [
-    CommonModule,
-    MatTableModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIcon,
     UppercaseTitlePipe,
+    SharedModule
   ],
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.scss'],

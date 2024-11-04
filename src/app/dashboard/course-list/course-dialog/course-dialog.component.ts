@@ -5,13 +5,8 @@ import { Course } from '@models/courses';
 import { Student } from '@models/students';
 import { CourseService } from 'src/app/shared/services/course.service';
 import { StudentService } from 'src/app/shared/services/student.service';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatSelectModule } from '@angular/material/select';
-import { MatOptionModule } from '@angular/material/core';
+import { SharedModule } from '../../shared.module';
+
 
 interface CourseDialogData {
   course?: Course;
@@ -22,13 +17,8 @@ interface CourseDialogData {
   selector: 'app-course-dialog',
   standalone: true,
   imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCardModule,
-    MatSelectModule,
-    MatOptionModule,
+
+    SharedModule
   ],
   templateUrl: './course-dialog.component.html',
   styleUrls: ['./course-dialog.component.scss'],

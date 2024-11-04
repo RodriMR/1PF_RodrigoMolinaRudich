@@ -1,17 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableModule } from '@angular/material/table';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { StudentService } from '../../shared/services/student.service';
 import { Student } from '@models/students';
 import { StudentDialogComponent } from './student-dialog/student-dialog.component';
+import { SharedModule } from '../shared.module';
 
 @Component({
   selector: 'app-alumni-list',
   standalone: true,
-  imports: [MatTableModule, MatCardModule, MatButtonModule, MatIcon],
+  imports: [SharedModule],
   templateUrl: './alumni-list.component.html',
   styleUrls: ['./alumni-list.component.scss'],
 })

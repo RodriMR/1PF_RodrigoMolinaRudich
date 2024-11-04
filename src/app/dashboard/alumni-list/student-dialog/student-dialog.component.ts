@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { SharedModule } from '../../shared.module';
 
 interface StudentDialogData {
   editingStudent?: Student;
@@ -15,13 +16,7 @@ interface StudentDialogData {
 @Component({
   selector: 'app-student-dialog',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCardModule,
-  ],
+  imports: [SharedModule],
 
   templateUrl: './student-dialog.component.html',
   styleUrl: './student-dialog.component.scss',
