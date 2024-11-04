@@ -60,7 +60,6 @@ export class CourseService {
     };
     this.courses.push(newCourse);
     this.coursesSubject.next([...this.courses]);
-    console.log(this.courses);
     return new Observable((observer) => observer.complete());
   }
 

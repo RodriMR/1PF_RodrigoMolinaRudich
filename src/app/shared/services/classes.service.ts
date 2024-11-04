@@ -76,7 +76,6 @@ export class ClassService {
     };
     this.classes.push(newClass);
     this.classesSubject.next([...this.classes]);
-    console.log(this.classes);
     return new Observable((observer) => observer.complete());
   }
 
