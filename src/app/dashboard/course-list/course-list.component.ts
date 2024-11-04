@@ -21,7 +21,13 @@ export class CourseListComponent implements OnInit {
   courses: Course[] = [];
   students: Student[] = [];
   classes: Class[] = [];
-  displayedColumns: string[] = ['title', 'description', 'students', 'actions'];
+  displayedCourseColumns: string[] = [
+    'title',
+    'description',
+    'classes',
+    'students',
+    'actions',
+  ];
   displayedColumnsClasses: string[] = ['title', 'description', 'actions'];
   constructor(
     private courseService: CourseService,
@@ -54,7 +60,18 @@ export class CourseListComponent implements OnInit {
       .filter((name) => name)
       .join(', ');
   }
-
+  getClassName(classIds: number[]): string {
+    if (!classIds || classIds.length === 0) {
+      return 'No classes assigned';
+    }
+    return classIds
+      .map((id) => {
+        const classItem = this.classes.find((s) => s.id === id);
+        return classItem ? `${classItem.title}` : '';
+      })
+      .filter((name) => name)
+      .join(', ');
+  }
   //------COURSES------//
   openCourseDialog(course?: Course): void {
     const dialogRef = this.dialog.open(CourseDialogComponent, {
@@ -88,7 +105,6 @@ export class CourseListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-      
         if (result.action === 'delete') {
           let { item } = result;
           this.classService.deleteClass(item.item.id);

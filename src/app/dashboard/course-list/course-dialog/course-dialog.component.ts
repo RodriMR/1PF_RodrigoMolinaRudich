@@ -6,7 +6,8 @@ import { Student } from '@models/students';
 import { CourseService } from 'src/app/shared/services/course.service';
 import { StudentService } from 'src/app/shared/services/student.service';
 import { SharedModule } from '../../shared.module';
-
+import { Class } from '@models/classes';
+import { ClassService } from 'src/app/shared/services/classes.service';
 
 interface CourseDialogData {
   course?: Course;
@@ -16,22 +17,20 @@ interface CourseDialogData {
 @Component({
   selector: 'app-course-dialog',
   standalone: true,
-  imports: [
-
-    SharedModule
-  ],
+  imports: [SharedModule],
   templateUrl: './course-dialog.component.html',
   styleUrls: ['./course-dialog.component.scss'],
 })
 export class CourseDialogComponent implements OnInit {
   courseForm: FormGroup;
   alumniList: Student[] = [];
-
+  classList: Class[] = [];
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<CourseDialogComponent>,
     private courseService: CourseService,
     private studentService: StudentService,
+    private classService: ClassService,
     @Inject(MAT_DIALOG_DATA) public data: CourseDialogData
   ) {
     this.courseForm = this.fb.group({
@@ -44,6 +43,7 @@ export class CourseDialogComponent implements OnInit {
         [Validators.required, Validators.minLength(10)],
       ],
       students: [data.course?.students || []],
+      classes: [data.course?.classes || []],
     });
   }
   public get isEditing() {
@@ -57,9 +57,11 @@ export class CourseDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Fetch the list of students to populate the dropdown
     this.studentService.getStudents().subscribe((students: Student[]) => {
       this.alumniList = students;
+    });
+    this.classService.getClasses().subscribe((classes: Class[]) => {
+      this.classList = classes;
     });
   }
 

@@ -29,6 +29,14 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
+        <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Select Classes of the course</mat-label>
+            <mat-select formControlName="classes" multiple>
+                <mat-option *ngFor="let class of classList" [value]="class.id">
+                    {{ class.title }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
 
         <div class="button-group">
             <button class="save-btn" mat-raised-button color="primary" (click)="onSave()">Save</button>
