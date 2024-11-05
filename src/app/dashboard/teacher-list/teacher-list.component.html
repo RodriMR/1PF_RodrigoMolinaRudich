@@ -1,15 +1,13 @@
 <mat-card>
-    <mat-card-title>Alumni List</mat-card-title>
-    <button class='add-alumni-btn' mat-button (click)="openModal()">
-        <mat-icon> add </mat-icon>
-        Create New Alumni
-    </button>
+    <mat-card-title>Teacher List</mat-card-title>
     <mat-card-content>
-        <table mat-table [dataSource]="students" class="mat-elevation-z8">
+        <table mat-table [dataSource]="teachers" class="mat-elevation-z8">
+
 
             <ng-container matColumnDef="firstName">
                 <th mat-header-cell *matHeaderCellDef> First Name </th>
-                <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+                <td mat-cell *matCellDef="let element"> <img mat-list-avatar [src]="element.avatarUrl"
+                        alt="{{element.firstName}}'s avatar"> {{element.firstName}} </td>
             </ng-container>
 
             <ng-container matColumnDef="lastName">
@@ -20,13 +18,6 @@
             <ng-container matColumnDef="email">
                 <th mat-header-cell *matHeaderCellDef> Email </th>
                 <td mat-cell *matCellDef="let element"> {{element.email}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef> Actions </th>
-                <td mat-cell *matCellDef="let element">
-                    <button mat-button (click)="editStudent(element)">Edit</button>
-                </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -22,7 +23,7 @@ import { NotAssignedDirective } from '../shared/directives/not-assigned.directiv
     MatOptionModule,
     MatTab,
     MatTabGroup,
-    ReactiveFormsModule,
+    HttpClientModule
   ],
   declarations: [NotAssignedDirective],
   exports: [
@@ -37,7 +38,9 @@ import { NotAssignedDirective } from '../shared/directives/not-assigned.directiv
     MatTab,
     MatTabGroup,
     ReactiveFormsModule,
-    NotAssignedDirective
+    NotAssignedDirective,
+    HttpClientModule
+
   ],
 })
 export class SharedModule {}
