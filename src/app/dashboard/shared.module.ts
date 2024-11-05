@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
+import { NotAssignedDirective } from '../shared/directives/not-assigned.directive';
 @NgModule({
   imports: [
     CommonModule,
@@ -21,9 +22,9 @@ import { MatTab, MatTabGroup } from '@angular/material/tabs';
     MatOptionModule,
     MatTab,
     MatTabGroup,
-
     ReactiveFormsModule,
   ],
+  declarations: [NotAssignedDirective],
   exports: [
     CommonModule,
     MatCardModule,
@@ -36,6 +37,7 @@ import { MatTab, MatTabGroup } from '@angular/material/tabs';
     MatTab,
     MatTabGroup,
     ReactiveFormsModule,
+    NotAssignedDirective
   ],
 })
 export class SharedModule {}

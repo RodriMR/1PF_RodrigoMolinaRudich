@@ -10,12 +10,14 @@ import { ClassService } from 'src/app/shared/services/classes.service';
 import { SharedModule } from '../shared.module';
 import { Class } from '@models/classes';
 import { ClassDialogComponent } from './class-dialog/class-dialog.component';
+
 @Component({
   selector: 'app-course-list',
   standalone: true,
   imports: [UppercaseTitlePipe, SharedModule],
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.scss'],
+
 })
 export class CourseListComponent implements OnInit {
   courses: Course[] = [];
